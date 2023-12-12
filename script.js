@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 let numbersOfFilms = prompt("Сколько фильмов вы уже посмотрели?");
 
 let personalMobieDB = {
@@ -18,5 +17,3 @@ lastMovie = prompt("Один из последних просмотренных 
 personalMobieDB.movies[lastMovie] = prompt("На сколько оцените его");
 
 console.log(personalMobieDB.movies);
-=======
->>>>>>> ee27d5aac5616cac2dbd96892205eedcd6159f9e
