@@ -33,8 +33,9 @@ function rememberMyFilms() {
       lastMovie.length < 50
     ) {
       personalMobieDB.movies[lastMovie] = lastMovieRate;
+      console.log("done");
     } else {
-      lastMovie = prompt("Один из последних просмотренных фильмов?");
+      console.log("error");
       i--;
     }
   }
@@ -66,7 +67,12 @@ showMyDB(personalMobieDB.privat);
 
 function writeYourGenres() {
   for (let i = 1; i <= 3; i++) {
-    personalMobieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+    let genre = prompt(`Ваш любимый жанр под номером ${i}`);
+    if (genre != null && genre.length > 0) {
+      personalMobieDB.genres[i - 1] = genre;
+    } else {
+      i--;
+    }
   }
 }
 
