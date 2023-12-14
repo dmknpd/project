@@ -1,4 +1,18 @@
-let numbersOfFilms = prompt("Сколько фильмов вы уже посмотрели?");
+let numbersOfFilms;
+
+function start() {
+  numbersOfFilms = +prompt("Сколько фильмов вы уже посмотрели?");
+
+  while (
+    numbersOfFilms == "" ||
+    numbersOfFilms == null ||
+    isNaN(numbersOfFilms)
+  ) {
+    numbersOfFilms = +prompt("Сколько фильмов вы уже посмотрели?");
+  }
+}
+
+start();
 
 let personalMobieDB = {
   count: numbersOfFilms,
@@ -8,12 +22,52 @@ let personalMobieDB = {
   privat: false,
 };
 
-let lastMovie = prompt("Один из последних просмотренных фильмов?");
+function rememberMyFilms() {
+  for (let i = 0; i < 2; i++) {
+    let lastMovie = prompt("Один из последних просмотренных фильмов?");
+    let lastMovieRate = prompt("На сколько оцените его");
+    if (
+      lastMovie != null &&
+      lastMovieRate != null &&
+      lastMovie.length > 0 &&
+      lastMovie.length < 50
+    ) {
+      personalMobieDB.movies[lastMovie] = lastMovieRate;
+    } else {
+      lastMovie = prompt("Один из последних просмотренных фильмов?");
+      i--;
+    }
+  }
+}
 
-personalMobieDB.movies[lastMovie] = prompt("На сколько оцените его");
+rememberMyFilms();
 
-lastMovie = prompt("Один из последних просмотренных фильмов?");
+function detectPersonalLevel() {
+  if (personalMobieDB.count < 10) {
+    console.log("Просмотренно довольно мало фильмов");
+  } else if (personalMobieDB.count >= 10 && personalMobieDB.count < 30) {
+    console.log("Вы классический зритель");
+  } else if (personalMobieDB.count >= 30) {
+    console.log("Вы киноман");
+  } else {
+    console.log("Произошла ошибка");
+  }
+}
 
-personalMobieDB.movies[lastMovie] = prompt("На сколько оцените его");
+detectPersonalLevel();
 
-console.log(personalMobieDB.movies);
+function showMyDB(hidden) {
+  if (hidden === false) {
+    console.log(personalMobieDB);
+  }
+}
+
+showMyDB(personalMobieDB.privat);
+
+function writeYourGenres() {
+  for (let i = 1; i <= 3; i++) {
+    personalMobieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+  }
+}
+
+writeYourGenres();
