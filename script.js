@@ -1,18 +1,18 @@
-let personalMobieDB = {
+let personalMovieDB = {
   count: 0,
   movies: {},
   actors: {},
   genres: [],
   privat: false,
   start: function () {
-    personalMobieDB.count = +prompt("Сколько фильмов вы уже посмотрели?");
+    personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?");
 
     while (
-      personalMobieDB.count == "" ||
-      npersonalMobieDB.count == null ||
-      isNaN(personalMobieDB.count)
+      personalMovieDB.count == "" ||
+      personalMovieDB.count == null ||
+      isNaN(personalMovieDB.count)
     ) {
-      personalMobieDB.count = +prompt("Сколько фильмов вы уже посмотрели?");
+      personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?");
     }
   },
 
@@ -26,7 +26,7 @@ let personalMobieDB = {
         lastMovie.length > 0 &&
         lastMovie.length < 50
       ) {
-        personalMobieDB.movies[lastMovie] = lastMovieRate;
+        personalMovieDB.movies[lastMovie] = lastMovieRate;
         console.log("done");
       } else {
         console.log("error");
@@ -36,33 +36,44 @@ let personalMobieDB = {
   },
 
   detectPersonalLevel: function () {
-    if (personalMobieDB.count < 10) {
+    if (personalMovieDB.count < 10) {
       console.log("Просмотренно довольно мало фильмов");
-    } else if (personalMobieDB.count >= 10 && personalMobieDB.count < 30) {
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
       console.log("Вы классический зритель");
-    } else if (personalMobieDB.count >= 30) {
+    } else if (personalMovieDB.count >= 30) {
       console.log("Вы киноман");
     } else {
       console.log("Произошла ошибка");
     }
   },
 
-  showMyDB: function () {
+  showMyDB: function (hidden) {
     if (hidden === false) {
-      console.log(personalMobieDB);
+      console.log(personalMovieDB);
     }
   },
 
   writeYourGenres: function () {
     for (let i = 1; i <= 3; i++) {
-      let genre = prompt(`Ваш любимый жанр под номером ${i}`).trim();
+      let genre = prompt(`Ваш любимый жанр под номером ${i}`);
       if (genre != null && genre.length > 0) {
-        personalMobieDB.genres[i - 1] = genre;
+        personalMovieDB.genres[i - 1] = genre.trim();
       } else {
+        console.log("Вы ввели некорректные данные или не ввели их вовсе");
         i--;
       }
+    }
+    personalMovieDB.genres.forEach((item, i) =>
+      console.log(`Любимый жанр #${i + 1} - это ${item}`)
+    );
+  },
+  toggleVisibleMyDB: function () {
+    if (personalMovieDB.privat === true) {
+      personalMovieDB.privat = false;
+    } else {
+      personalMovieDB.privat = true;
     }
   },
 };
 
-personalMobieDB.detectPersonalLevel();
+personalMovieDB.detectPersonalLevel();
